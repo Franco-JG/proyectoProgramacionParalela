@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define N 100
+#define N 100 //* 1,000,000,000 MAX
 
 bool *arr;
 int pivote = 2;
@@ -12,19 +12,16 @@ int i, j;
 
 int main()
 {   
-    //* Reservamos memoria para un arraglo de N elementosde tipo bool
     arr = (bool *)malloc(N+1 * sizeof(bool));
     if (arr == NULL)
     {
         puts("No se pudo asignar la memoria.\n");
         return 1;
     }
-    //* Inicializamos elementos
     arr[0] = false;
     arr[1] = false;
     for (i = 2; i <= N; i++)
         arr[i] = true;
-
     while (pow(pivote,2) <= N) 
     {
         j = pow(pivote,2);
@@ -39,16 +36,15 @@ int main()
             pivote++;
         }
     }
-    i = 0;
+    i = 0, j = 0; 
     while (i <= N)
     {
         if(arr[i] == true){
-            printf("%d, ",i);
+            j = i;
         }
         i++;
     }
-    //? Liberamos memoria
+    printf("Ultimo num primo: %d\n",j);
     free(arr);
-    
     return 0;
 }
