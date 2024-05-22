@@ -4,7 +4,7 @@ La Criba de Eratóstenes es el algoritmo clásico para encontrar números primos
 #### Elaborar las siguientes versiones del algoritmo de la Criba de Eratóstenes para el cálculo de los números primos menores a un número N:
 
 - [x] Secuencial
-- [ ] Paralelo con threads (pthreads o con OpenMP)
+- [x] Paralelo con threads (pthreads o con OpenMP)
 - [ ] Paralelo con CUDA
 - [ ] Paralelo con MPI
 
