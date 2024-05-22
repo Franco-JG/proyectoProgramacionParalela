@@ -2,14 +2,17 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
+#include <stdint.h>
 #include <time.h>
 #include <pthread.h>
 
-#define N 100000000
+#define N 1000000000
 #define NUM_THREADS 4
 
 bool *arr;
 int sqrtN;
+uint64_t tiempo;
+struct timespec ini, fin;
 
 typedef struct {
     int thread_id;
@@ -49,9 +52,8 @@ int main() {
     
     pthread_t threads[NUM_THREADS];
     thread_data_t thread_data[NUM_THREADS];
-    
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ini); 
     int segmento = (N - 2 + 1) / NUM_THREADS;
-    
     for (int t = 0; t < NUM_THREADS; t++) {
         thread_data[t].thread_id = t;
         thread_data[t].start = t * segmento + 2;
@@ -65,14 +67,24 @@ int main() {
     for (int t = 0; t < NUM_THREADS; t++) {
         pthread_join(threads[t], NULL);
     }
-    
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &fin);
+    tiempo = 1e9*(fin.tv_sec - ini.tv_sec) + (fin.tv_nsec - ini.tv_nsec);
+    printf("Tiempo cálculo paralelo: %.3f ms\n", tiempo/1000000.0);
     /* printf("Numeros primos menores o iguales a %d:\n", N);
     for (int i = 2; i <= N; i++) {
         if (arr[i]) {
             printf("%d ", i);
         }
     } */
-    printf("SUCCESS\n");
+    int i = 0, j = 0; 
+    while (i <= N)
+    {
+        if(arr[i] == true){
+            j = i;
+        }
+        i++;
+    }
+    printf("Último num primo: %d\n",j);
     
     free(arr);
     return EXIT_SUCCESS;
