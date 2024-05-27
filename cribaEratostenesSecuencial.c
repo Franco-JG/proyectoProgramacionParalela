@@ -5,7 +5,7 @@
 #include <time.h>
 #include <stdint.h>
 
-#define N 1000000000
+#define N 100//0000000
 
 bool *arr;
 int pivote = 2;
